@@ -1,5 +1,4 @@
 from __future__ import print_function, division
-import numpy as np
 from src.utilities import *
 
 pt = {'match': 1, 'mismatch': -1, 'gap': -2}
@@ -14,7 +13,7 @@ def mch(alpha, beta):
         return pt['mismatch']
 
 
-def needle(s2, s1,k):
+def kBand(s1, s2,k):
     m, n = len(s1), len(s2)
     matriz = crearMatriz(m+1,n+1)
 
@@ -109,7 +108,27 @@ def needle(s2, s1,k):
     print(align1)
     print(sym)
     print(align2)
+    alphaK = (matriz[-1][-1])
+    print (alphaK)
+    return alphaK
+
+
+def obtener_el_mejor(cadena1, cadena2, k):
+    print("hola")
+    if (len(cadena1)== len(cadena2) and k>0 ):
+        while k<len(cadena1)-1:
+            valor=kBand(cadena1, cadena2, k)
+            print (valor)
+            if(valor>=pt['match']*(len(cadena1)-1)+2*pt['gap']):
+                k=k+1
+            else:
+                break
+    elif (len(cadena1)!= len(cadena2)):
+        print("Revisar el largo de las hileras")
+    else:
+        print("Su K debe ser mayor a 0 y menor a el tamaño de las cadenas")
+
 
 
 if __name__ == '__main__':
-    needle("ATTGTGATCC", "TTGCATCGGC",2)
+    obtener_el_mejor( "TTGCATCGGC","ATTGTGATCC", 2)
