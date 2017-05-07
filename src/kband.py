@@ -115,11 +115,12 @@ def kBand(s1, s2,k):
 
 def obtener_el_mejor(cadena1, cadena2, k):
     print("hola")
-    if (len(cadena1)== len(cadena2) and k>0 ):
+    if (len(cadena1)== len(cadena2) and k>=0 ):
         while k<len(cadena1)-1:
             valor=kBand(cadena1, cadena2, k)
             print (valor)
-            if(valor>=pt['match']*(len(cadena1)-1)+2*pt['gap']):
+            print (pt['match']*(len(cadena1)-1)+2*pt['gap']*k)
+            if(valor<pt['match']*(len(cadena1)-1)+2*pt['gap']*k):
                 k=k+1
             else:
                 break
