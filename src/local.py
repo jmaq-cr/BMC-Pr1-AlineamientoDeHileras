@@ -40,8 +40,7 @@ def water(s1, s2):
                 max_j = j
                 max_score = getValue(H,i,j)
 
-    print('H=\n', H, '\n')
-    print('T=\n', T, '\n')
+
     align1, align2 = '', ''
     i, j = max_i, max_j
 
@@ -50,20 +49,19 @@ def water(s1, s2):
         if getValue(T,i,j) == 3:
             a1 = s1[i - 1]
             a2 = s2[j - 1]
+            H = addDirection(H, i, j, "diag")
             i -= 1
             j -= 1
-            T = addDirection(T, i, j, "diag")
         elif getValue(T,i,j) == 2:
             a1 = '-'
             a2 = s2[j - 1]
+            H = addDirection(H, i, j, "left")
             j -= 1
-            T = addDirection(T, i, j, "up")
         elif getValue(T,i,j) == 1:
             a1 = s1[i - 1]
             a2 = '-'
+            H = addDirection(H,i,j,"up")
             i -= 1
-            T = addDirection(T,i,j,"left")
-        print('%s ---> a1 = %s\t a2 = %s\n' % ('Add', a1, a2))
         align1 += a1
         align2 += a2
 
@@ -82,6 +80,8 @@ def water(s1, s2):
         elif a1 == '-' or a2 == '-':
             sym += ' '
 
+
+    showMatrix(H, s1, s2)
     identity = iden / len(align1) * 100
     print('Identity = %f percent' % identity)
     print('Score =', max_score)
@@ -89,6 +89,5 @@ def water(s1, s2):
     print(sym)
     print(align2)
 
-
 if __name__ == '__main__':
-    water('AGCACACA', 'ACACACTA')
+    water("ATTGTGATCC", "TTGCATCGGC")
