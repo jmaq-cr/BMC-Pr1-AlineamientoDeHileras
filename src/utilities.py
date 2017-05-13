@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 def cargarHilera():
     texto = ""
     tipo = str(input("1. Texto\n2. Archivo\n>>"))
@@ -30,8 +32,9 @@ def crearMatriz(m,n):
                 matrix[i].insert(j, "·")
     return matrix
 
+
 def showMatrix(matrix,seq1,seq2):
-    printable = matrix
+    printable = deepcopy(matrix)
     header1 = []
     cont1 = 0
     cont2 = 0
@@ -45,7 +48,7 @@ def showMatrix(matrix,seq1,seq2):
         else:
             printable[i].insert(0, "·")
 
-    for i in range(len(matrix[0])):
+    for i in range(len(printable[0])):
         if i%2 != 0 and i != 1:
             header1.insert(i, seq2[cont2])
             cont2 += 1
@@ -56,10 +59,10 @@ def showMatrix(matrix,seq1,seq2):
 
     printable.insert(0,header1)
 
-    for i in range(len(matrix)):
+    for i in range(len(printable)):
         buffer = ""
-        for j in range(len(matrix[i])):
-            buffer += "\t"+str(matrix[i][j])
+        for j in range(len(printable[i])):
+            buffer += "\t"+str(printable[i][j])
         print(buffer)
 
 
