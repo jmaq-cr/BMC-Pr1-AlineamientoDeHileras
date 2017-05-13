@@ -1,5 +1,4 @@
 from __future__ import print_function, division
-import numpy as np
 from src.utilities import *
 
 pt = {'match': 1, 'mismatch': -1, 'gap': -2}
