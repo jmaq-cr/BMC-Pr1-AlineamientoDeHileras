@@ -29,7 +29,6 @@ def kBand(s1, s2,k):
             diag = getValue(matriz, i - 1, j - 1) + mch(s1[i - 1], s2[j - 1])
             delete = getValue(matriz, i - 1, j) + pt['gap']
             insert = getValue(matriz, i, j - 1) + pt['gap']
-
             if j <= i+k and i <= j+k:
                 if i == j+k:
                     matriz = setValue(matriz, i, j, max(diag, delete))
@@ -39,8 +38,6 @@ def kBand(s1, s2,k):
                     matriz = setValue(matriz, i, j, max(diag, insert,delete))
             else:
                 matriz = setValue(matriz,i,j,0)
-
-
 
 
     align1, align2 = '', ''
@@ -54,19 +51,19 @@ def kBand(s1, s2,k):
         score_up = getValue(matriz, i-1, j)
 
 
-        if score_current == score_diag + mch(s1[i - 1], s2[j - 1]):
+        if score_current == score_diag + mch(s1[i - 1], s2[j - 1]) or k==0:
             matriz = addDirection(matriz,i,j,"diag")
             a1, a2 = s1[i - 1], s2[j - 1]
             i, j = i - 1, j - 1
-        if score_current == score_up + pt['gap']:
+
+        elif score_current == score_up + pt['gap']:
             matriz = addDirection(matriz,i,j,"up")
             a1, a2 = s1[i - 1], '-'
             i -= 1
-        if score_current == score_left + pt['gap']:
+        elif score_current == score_left + pt['gap']:
             matriz = addDirection(matriz, i, j, "left")
             a1, a2 = '-', s2[j - 1]
             j -= 1
-
         align1 += a1
         align2 += a2
 
@@ -108,28 +105,7 @@ def kBand(s1, s2,k):
     print(align1)
     print(sym)
     print(align2)
-    alphaK = (matriz[-1][-1])
-    print (alphaK)
-    return alphaK
-
-
-def obtener_el_mejor(cadena1, cadena2, k):
-    print("hola")
-    if (len(cadena1)== len(cadena2) and k>=0 ):
-        while k<len(cadena1)-1:
-            valor=kBand(cadena1, cadena2, k)
-            print (valor)
-            print (pt['match']*(len(cadena1)-1)+2*pt['gap']*k)
-            if(valor<pt['match']*(len(cadena1)-1)+2*pt['gap']*k):
-                k=k+1
-            else:
-                break
-    elif (len(cadena1)!= len(cadena2)):
-        print("Revisar el largo de las hileras")
-    else:
-        print("Su K debe ser mayor a 0 y menor a el tamaño de las cadenas")
-
 
 
 if __name__ == '__main__':
-    obtener_el_mejor( "TTGCATCGGC","ATTGTGATCC", 2)
+    kBand( "TTGCATCGGC","ATTGTGATCC", 1)
