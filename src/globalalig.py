@@ -1,7 +1,6 @@
 from __future__ import print_function, division
 from src.utilities import *
 
-
 def mch(alpha, beta):
     if alpha == beta:
         return pt['match']
@@ -11,7 +10,7 @@ def mch(alpha, beta):
         return pt['mismatch']
 
 
-def kBand(s1, s2,k):
+def needle(s2, s1):
     m, n = len(s1), len(s2)
     matriz = crearMatriz(m+1,n+1)
 
@@ -27,15 +26,7 @@ def kBand(s1, s2,k):
             diag = getValue(matriz, i - 1, j - 1) + mch(s1[i - 1], s2[j - 1])
             delete = getValue(matriz, i - 1, j) + pt['gap']
             insert = getValue(matriz, i, j - 1) + pt['gap']
-            if j <= i+k and i <= j+k:
-                if i == j+k:
-                    matriz = setValue(matriz, i, j, max(diag, delete))
-                elif j == i+k:
-                    matriz = setValue(matriz, i, j, max(diag, insert))
-                else:
-                    matriz = setValue(matriz, i, j, max(diag, insert,delete))
-            else:
-                matriz = setValue(matriz,i,j,0)
+            matriz = setValue(matriz,i,j,max(diag, delete, insert))
 
 
     align1, align2 = '', ''
@@ -49,19 +40,19 @@ def kBand(s1, s2,k):
         score_up = getValue(matriz, i-1, j)
 
 
-        if score_current == score_diag + mch(s1[i - 1], s2[j - 1]) or k==0:
+        if score_current == score_diag + mch(s1[i - 1], s2[j - 1]):
             matriz = addDirection(matriz,i,j,"diag")
             a1, a2 = s1[i - 1], s2[j - 1]
             i, j = i - 1, j - 1
-
-        elif score_current == score_up + pt['gap']:
+        if score_current == score_up + pt['gap']:
             matriz = addDirection(matriz,i,j,"up")
             a1, a2 = s1[i - 1], '-'
             i -= 1
-        elif score_current == score_left + pt['gap']:
+        if score_current == score_left + pt['gap']:
             matriz = addDirection(matriz, i, j, "left")
             a1, a2 = '-', s2[j - 1]
             j -= 1
+
         align1 += a1
         align2 += a2
 
@@ -98,11 +89,10 @@ def kBand(s1, s2,k):
     ident = ident / seqN * 100
 
     if tablas:
-        showMatrix(matriz,s1,s2)
+        showMatrix(matriz, s1, s2)
     print('Identity = %2.1f percent' % ident)
     print('Score = %d\n' % seq_score)
     print(align1)
     print(sym)
     print(align2)
-
 

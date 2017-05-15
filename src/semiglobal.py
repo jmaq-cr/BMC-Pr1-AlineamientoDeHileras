@@ -1,8 +1,6 @@
 from __future__ import print_function, division
 from src.utilities import *
 
-pt = {'match': 1, 'mismatch': -1, 'gap': -2}
-
 
 def mch(alpha, beta):
     if alpha == beta:
@@ -13,15 +11,9 @@ def mch(alpha, beta):
         return pt['mismatch']
 
 
-def needle(s2, s1):
+def semiglobal(s2, s1):
     m, n = len(s1), len(s2)
     matriz = crearMatriz(m+1,n+1)
-
-    # Initialization
-    for i in range(m + 1): #puede que haya que quitar el + 1
-        matriz = setValue(matriz, i, 0, pt['gap'] * i)
-    for j in range(n + 1):
-        matriz = setValue(matriz, 0, j, pt['gap'] * j)
 
     # Fill
     for i in range(1, m + 1):
@@ -33,7 +25,13 @@ def needle(s2, s1):
 
 
     align1, align2 = '', ''
-    i, j = m, n
+    i = m
+    j = 1
+    maxi = getValue(matriz,m,1)
+    for x in range(1, n+1):
+        if getValue(matriz, m, x) >= maxi:
+            maxi = getValue(matriz,m,x)
+            j = x
 
     # Traceback
     while i > 0 and j > 0:
@@ -91,13 +89,10 @@ def needle(s2, s1):
 
     ident = ident / seqN * 100
 
-    showMatrix(matriz,s1,s2)
+    if tablas:
+        showMatrix(matriz,s1,s2)
     print('Identity = %2.1f percent' % ident)
     print('Score = %d\n' % seq_score)
     print(align1)
     print(sym)
     print(align2)
-
-
-if __name__ == '__main__':
-    needle("ATTGTGATCC", "TTGCATCGGC")

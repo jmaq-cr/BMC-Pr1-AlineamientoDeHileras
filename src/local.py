@@ -1,9 +1,6 @@
 from __future__ import division, print_function
 from src.utilities import *
 
-pt = {'match': 2, 'mismatch': -1, 'gap': -1}
-
-
 def mch(alpha, beta):
     if alpha == beta:
         return pt['match']
@@ -78,14 +75,11 @@ def water(s1, s2):
         elif a1 == '-' or a2 == '-':
             sym += ' '
 
-
-    showMatrix(H, s1, s2)
+    if tablas:
+        showMatrix(H, s1, s2)
     identity = iden / len(align1) * 100
     print('Identity = %f percent' % identity)
     print('Score =', max_score)
     print(align1)
     print(sym)
     print(align2)
-
-if __name__ == '__main__':
-    water("ATTGTGATCC", "TTGCATCGGC")

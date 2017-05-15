@@ -1,4 +1,6 @@
 from copy import deepcopy
+pt = {'match': 2, 'mismatch': -1, 'gap': -1,'opengap': -2, 'extgap':-1}
+tablas = True
 
 def cargarHilera():
     texto = ""
