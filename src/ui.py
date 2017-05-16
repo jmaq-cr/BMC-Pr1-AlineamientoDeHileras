@@ -4,11 +4,13 @@ from src.kband import *
 from src.lineal import *
 from src.local import *
 from src.afinidadgap import *
+from time import time
 import src.utilities
 
 
 
 def main():
+    inicio = time()
     salir = False
 
     secuencia1 = ""
@@ -23,6 +25,7 @@ def main():
         print("6. Alineamiento Global K-Band")
         print("7. Alineamiento Con Función de Afin de Costo por Gap")
         print("8. Alineamiento Global con Espacio Lineal")
+        print("#ayuda")
         opc = str(input(">>"))
         if opc == "1":
             secuencia1 = cargarHilera()
@@ -45,7 +48,17 @@ def main():
         elif opc == "8":
             lineal(secuencia1,secuencia2)
         elif opc == "#ayuda":
-            print("Imprime la ayuda")
+            print("Presione 1 para cargar la primera hilera y 2 para cargar la segunda.")
+            print("Seleccione alguno de los otros números para ejecutar el algoritmo deseado sobre las hileras cargadas.")
+            print("Puede volver a cargar otras hileras cuando lo desee.")
+            print("#ayuda: muestra la ayuda al usuario")
+            print("#tablas: activa o desactiva la vista de las tablas")
+            print("#listar: lista los algoritmos implementados")
+            print("#val: muestra el valor actual de los pesos")
+            print("#match: muestra el valor actual de match y permite cambiarlo")
+            print("#mismatch: muestra el valor actual de mismatch y permite cambiarlo")
+            print("#gap: muestra el valor altual de gap y permite cambiarlo")
+            print("#salir: termina la ejecución")
         elif opc == "#tablas":
             if src.utilities.tablas == True:
                 src.utilities.tablas = False
@@ -82,8 +95,9 @@ def main():
                 print("El valor no es correcto")
         elif opc == "#salir":
             salir = True
-            print("Memoria usada: ")
-            print("Tiempo de ejecución: ")
+            fin = time()
+            print("Memoria usada: ", )
+            print("Tiempo de ejecución: ", fin-inicio, " segundos")
             print("Tecnológico de Costa Rica")
             print("Escuela de Ingeniería en Computación")
             print("Introducción a la Biología Molecular Computacional")
