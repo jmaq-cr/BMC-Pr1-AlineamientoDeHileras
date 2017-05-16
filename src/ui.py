@@ -41,7 +41,7 @@ def main():
             else:
                 print("El tamaño de K no es válido")
         elif opc == "7":
-            print("Hace la función afin de costo por gap")
+            afingap(secuencia1,secuencia2)
         elif opc == "8":
             lineal(secuencia1,secuencia2)
         elif opc == "#ayuda":
@@ -82,5 +82,14 @@ def main():
                 print("El valor no es correcto")
         elif opc == "#salir":
             salir = True
+            print("Memoria usada: ")
+            print("Tiempo de ejecución: ")
+            print("Tecnológico de Costa Rica")
+            print("Escuela de Ingeniería en Computación")
+            print("Introducción a la Biología Molecular Computacional")
+            print("Primer Proyecto Programado: Alineamientos")
+            print("Profesor: Esteban Arias Méndez")
+            print("Estudiantes: Jose Aguilar Quesada - Crisia Piedra Chaves")
+            print("Primer Semestre, 2017")
 
 
