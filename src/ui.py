@@ -3,6 +3,10 @@ from src.semiglobal import *
 from src.kband import *
 from src.lineal import *
 from src.local import *
+from src.afinidadgap import *
+import src.utilities
+
+
 
 def main():
     salir = False
@@ -32,7 +36,7 @@ def main():
             semiglobal(secuencia1,secuencia2)
         elif opc == "6":
             k = str(input("Ingrese el tamaño de K"))
-            if k < len(secuencia1) and k < len(secuencia2) and k.isdecimal():
+            if len(k) < len(secuencia1) and len(k) < len(secuencia2) and k.isdecimal():
                 kBand(secuencia1,secuencia2,int(k))
             else:
                 print("El tamaño de K no es válido")
@@ -43,10 +47,11 @@ def main():
         elif opc == "#ayuda":
             print("Imprime la ayuda")
         elif opc == "#tablas":
-            if tablas:
-                tablas = False
+            if src.utilities.tablas == True:
+                src.utilities.tablas = False
             else:
-                tablas = True
+                src.utilities.tablas = True
+            print(tablas)
         elif opc == "#listar":
             print("Alineamiento Global")
             print("Alineamiento Local")
@@ -57,24 +62,25 @@ def main():
         elif opc == "#val":
             print(pt)
         elif opc == "#match":
-            val = str(input("El valor actual de match es "+str(pt['match']+" si lo desea cambiar ingréselo a continuación")))
+            val = str(input("El valor actual de match es "+str(pt['match']) + " si lo desea cambiar ingréselo a continuación: "))
             if val != "" and val.lstrip("-").isdigit():
-                pt['match'] = int(val)
+                src.utilities.pt['match'] = int(val)
             else:
                 print("El valor no es correcto")
         elif opc == "#mismatch":
-            val = str(input("El valor actual de mismatch es " + str(pt['mismatch'] + " si lo desea cambiar ingréselo a continuación")))
+            val = str(input("El valor actual de mismatch es " + str(pt['mismatch']) + " si lo desea cambiar ingréselo a continuación: "))
             if val != "" and val.lstrip("-").isdigit():
-                pt['mismatch'] = int(val)
+                src.utilities.pt['mismatch'] = int(val)
             else:
                 print("El valor no es correcto")
         elif opc == "#gap":
-            val = str(input("El valor actual de gap es " + str(pt['gap'] + " si lo desea cambiar ingréselo a continuación")))
+            val = str(input("El valor actual de gap es " + str(pt['gap']) + " si lo desea cambiar ingréselo a continuación: "))
             if val != "" and val.lstrip("-").isdigit():
-                pt['gap'] = int(val)
+                src.utilities.pt['gap'] = int(val)
+                print(pt)
             else:
                 print("El valor no es correcto")
         elif opc == "#salir":
-            salir == True
+            salir = True
 
-main()
+
